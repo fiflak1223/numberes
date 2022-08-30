@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chuj</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: white;
+        }
+        body{
+            background-color: black;
+        }
+        button,input{
+            color: black;
+            background-color: grey;
+        }
+        .numbers{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+        }
+        input.check{
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+        }
+        .time{
+            position: fixed;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="time"></div>
+    <div>how many numbers</div>
+    <input class="c" type="">
+    <button class="start">start</button>
+    <div class="numbers"></div>
+    <button class="hide">hide</button>
+    <button class="check">check</button>
+    <input class="check" type="">
+    <script >
+        let btn = document.querySelector(".start");
+        btn.addEventListener("click", showNumber);
+
+        let hide = document.querySelector(".hide");
+        hide.addEventListener("click", hideNumber);
+
+        let check = document.querySelector(".check");
+        check.addEventListener("click", checkNumber);
+
+        let numShow = document.querySelector(".numbers");
+        
+        let timeS=0;
+        let timeE=0;
+
+        let x = "";
+        function showNumber(){
+            let num = document.querySelector("input.c").value;
+            x = "";
+            for(let i = 0; i < num; i++){
+                let theRandomNumber = Math.floor(Math.random() * 10); // 0-9 
+                x += theRandomNumber;
+            }
+            numShow.innerHTML = x; 
+            let numm = document.querySelector("input.check");
+            numm.style.backgroundColor = "grey";
+            numm.style.display="none";
+            numm.value="";
+            timeS=performance.now()  
+        }
+        function hideNumber(){
+            numShow.innerHTML = "";
+            let num = document.querySelector("input.check");
+            num.style.display = "block";
+            timeE = performance.now()
+        }
+        function checkNumber(){
+            let num = document.querySelector("input.check").value;
+            if (x == num){
+                let num = document.querySelector("input.check");
+                num.style.backgroundColor = "green";
+            }else{
+                let num = document.querySelector("input.check");
+                num.style.backgroundColor = "red";
+            }
+            timeDive = document.querySelector(".time");
+            let tim= Math.floor(timeE-timeS)/1000;
+            timeDive.innerHTML = tim;
+        }
+
+        console.log(`Call to doSomething took ${endTime - startTime} milliseconds`)
+    </script>
+</body>
+</html>
